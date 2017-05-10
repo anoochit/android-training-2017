@@ -1,0 +1,106 @@
+package net.redlinesoft.a13_retrofit.model;
+
+/**
+ * Created by xavier on 5/3/2017 AD.
+ */
+
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Place {
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+    @SerializedName("images")
+    @Expose
+    private List<String> images = null;
+    @SerializedName("geolocation")
+    @Expose
+    private Geolocation geolocation;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Place() {
+    }
+
+    /**
+     *
+     * @param phone
+     * @param geolocation
+     * @param address
+     * @param description
+     * @param name
+     * @param images
+     */
+    public Place(String name, String description, String address, String phone, List<String> images, Geolocation geolocation) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.phone = phone;
+        this.images = images;
+        this.geolocation = geolocation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public Geolocation getGeolocation() {
+        return geolocation;
+    }
+
+    public void setGeolocation(Geolocation geolocation) {
+        this.geolocation = geolocation;
+    }
+
+}
