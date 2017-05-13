@@ -5,11 +5,14 @@ package net.redlinesoft.a13_retrofit.model;
  */
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Place {
-
+    @SerializedName("_id")
+    @Expose
+    private String id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -31,13 +34,12 @@ public class Place {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Place() {
     }
 
     /**
-     *
+     * @param id
      * @param phone
      * @param geolocation
      * @param address
@@ -45,8 +47,9 @@ public class Place {
      * @param name
      * @param images
      */
-    public Place(String name, String description, String address, String phone, List<String> images, Geolocation geolocation) {
+    public Place(String id,String name, String description, String address, String phone, List<String> images, Geolocation geolocation) {
         super();
+        this.id=id;
         this.name = name;
         this.description = description;
         this.address = address;
@@ -54,6 +57,15 @@ public class Place {
         this.images = images;
         this.geolocation = geolocation;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getName() {
         return name;

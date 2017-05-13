@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 
 public interface ApiInterface {
 
-    @GET("data02.json")
+    //@GET("data02.json")
+    @GET("place")
     Call<List<Place>> doGetPlaceList();
 }

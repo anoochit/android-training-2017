@@ -9,7 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL="https://raw.githubusercontent.com/anoochit/jsondata/master/";
+    public static final String BASE_URL="https://warm-ridge-87805.herokuapp.com/";
+    //public static final String BASE_URL="https://raw.githubusercontent.com/anoochit/jsondata/master/";
     private static Retrofit retrofit=null;
 
     public static Retrofit getClient() {
