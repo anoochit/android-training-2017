@@ -1,34 +1,36 @@
-package net.redlinesoft.a13_location_service.activity;
+package net.redlinesoft.a13_retrofit_location.activity;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.View;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.nearby.messages.internal.Update;
 
-import net.redlinesoft.a13_location_service.R;
+import net.redlinesoft.a13_retrofit_location.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -38,8 +40,10 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private String TAG = "Location Service";
+    private Location location;
 
+    private Double locLat=13.90;
+    private Double locLon=100.55;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,12 @@ public class MainActivity extends AppCompatActivity
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
+/*        // load mainfragment
+        MainFragment mainFragment = new MainFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container,mainFragment);
+        fragmentTransaction.commit();*/
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -85,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -145,39 +156,45 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
-        Log.d(TAG, "Location Connected");
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},0);
             return;
         }
 
         // get last know location
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (location == null) {
-            Log.d(TAG, "Request Location Updates");
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         } else {
-            Log.d(TAG, "handle last Location");
-            handleNewLocation(location);
-            //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            // Toast.makeText(this,location.toString(),Toast.LENGTH_SHORT).show();
+            // set bundle and load main fragment
+            this.locLat = location.getLatitude();
+            this.locLon = location.getLongitude();
+            Bundle mBundle = new Bundle();
+            mBundle.putDouble("locLat",this.locLat);
+            mBundle.putDouble("locLon",this.locLon);
+            MainFragment mainFragment = new MainFragment();
+            mainFragment.setArguments(mBundle);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,mainFragment);
+            fragmentTransaction.commit();
         }
-    }
-
-    private void handleNewLocation(Location location) {
-        Log.d(TAG, location.toString());
-        Toast.makeText(this,location.toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d(TAG, "Location Connection Suspended");
-        Toast.makeText(this,"Location Connection Suspended",Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,connectionResult.getErrorMessage(),Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Toast.makeText(this,location.toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -195,9 +212,4 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        Log.d(TAG, "Location Changed");
-        handleNewLocation(location);
-    }
 }
