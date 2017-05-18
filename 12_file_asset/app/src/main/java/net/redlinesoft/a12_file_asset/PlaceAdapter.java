@@ -40,8 +40,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceHolder>
         holder.txtName.setText(mData.get(position).getName());
         Picasso.with(view.getContext())
                 .load(mData.get(position).getImages().get(0))
-                .resize(256,256)
-                .centerCrop()
                 .into(holder.imgThumbnail);
 
         Log.d(TAG,">"+mData.get(position).getImages().get(0));
@@ -66,7 +64,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceHolder>
 
         @Override
         public void onClick(View view) {
+            removeAt(getAdapterPosition());
+        }
 
+        public void removeAt(int position) {
+            mData.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mData.size());
         }
     }
 
