@@ -1,6 +1,7 @@
 package net.redlinesoft.a12_file_asset;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Helper helper = new Helper();
+        if (!helper.isNetworkAvailable(getApplicationContext())) {
+            startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+        }
 
         // load mainfragment
         MainFragment fragment = new MainFragment();

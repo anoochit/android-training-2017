@@ -13,7 +13,7 @@ public class Place {
 
     @SerializedName("_id")
     @Expose
-    private String id;
+    private String _id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -45,7 +45,7 @@ public class Place {
      */
     public Place(String id, String name, String description, String address, String phone, List<String> images, Geolocation geolocation) {
         super();
-        this.id = id;
+        this._id = id;
         this.name = name;
         this.description = description;
         this.address = address;
@@ -55,11 +55,11 @@ public class Place {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getName() {

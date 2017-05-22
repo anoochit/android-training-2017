@@ -1,5 +1,7 @@
 package net.redlinesoft.a12_file_asset;
 
+import android.os.Bundle;
+import android.support.v4.app.BundleCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +42,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceHolder>
         holder.txtName.setText(mData.get(position).getName());
         Picasso.with(view.getContext())
                 .load(mData.get(position).getImages().get(0))
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(holder.imgThumbnail);
 
         Log.d(TAG,">"+mData.get(position).getImages().get(0));
@@ -64,7 +68,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceHolder>
 
         @Override
         public void onClick(View view) {
-            removeAt(getAdapterPosition());
+            //removeAt(getAdapterPosition());
+            Log.d(TAG,">"+mData.get(getAdapterPosition()).getId());
+
+
         }
 
         public void removeAt(int position) {
