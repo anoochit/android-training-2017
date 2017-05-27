@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Login Settings">
+        <EditTextPreference
+            android:key="perfUsername"
+            android:title="Username" />
+        <EditTextPreference
+            android:key="perfPassword"
+            android:title="Password" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Display Settings">
+        <ListPreference
+            android:entries="@array/numberColumn"
+            android:entryValues="@array/numberColumnValue"
+            android:key="perfNumberColumn"
+            android:title="Number of Column" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefShowDetail"
+            android:title="Show Detail" />
+
+        <SwitchPreference android:title="Turn Disply" android:key="prefTurnDisplay"/>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -16,11 +16,6 @@ public class MainActivity extends AppCompatActivity {
         // Note: code with console log for debug, info, error and watch your log in logcat
         Log.d(TAG,"this is debug message, watch me in debug mode in logcat");
 
-
-
     }
-
-
-
 }
 

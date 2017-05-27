@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">12_sharepreference</string>
+    <string name="show_value">Show Value</string>
+    <string name="clear_value">Clear Value</string>
+</resources>
