@@ -1,5 +1,6 @@
 package net.redlinesoft.a04_basicform;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     txtGender="Female";
                 }
 
+                // initial subscribe string with space prevent error while substring
                 String txtSubscribe=" ";
                 if (checkboxNews.isChecked()) txtSubscribe +="News,";
                 if (checkboxArticle.isChecked()) txtSubscribe +="Article,";
@@ -65,8 +67,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Email -> "+txtEmail);
                 Log.d(TAG, "Password -> "+txtPassword);
 
-                // TODO: sent to second activity
-                
+                // sent to second activity
+                Intent intent = new Intent(MainActivity.this,ResultActivity.class);
+                intent.putExtra("extName",txtName);
+                intent.putExtra("extBirthday",txtBirthday);
+                intent.putExtra("extGender",txtGender);
+                intent.putExtra("extSubscribe",txtSubscribe);
+                intent.putExtra("extEmail",txtEmail);
+                intent.putExtra("extPassword",txtPassword);
+                startActivity(intent);
 
             }
         });

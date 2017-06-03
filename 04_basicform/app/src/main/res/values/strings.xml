@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">04_basic form</string>
+    <string name="label_result">Result</string>
 </resources>
