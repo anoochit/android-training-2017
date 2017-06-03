@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextName,editTextBirthday,editTextEmail,editTextPassword;
     CheckBox checkboxNews,checkboxArticle,checkboxInterview;
     RadioButton radioButtonMale,radioButtonFemale;
+    RadioGroup radioGroupGender;
     Button buttonSubmit;
 
     @Override
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // binding
         editTextName = (EditText) findViewById(R.id.edtName);
         editTextBirthday = (EditText) findViewById(R.id.edtBirthday);
+        radioGroupGender = (RadioGroup) findViewById(R.id.radioGroupGender);
         radioButtonMale = (RadioButton) findViewById(R.id.radioButtonMale);
         radioButtonFemale = (RadioButton) findViewById(R.id.radioButtonFemale);
         checkboxNews = (CheckBox) findViewById(R.id.chkNews);
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         editTextPassword = (EditText) findViewById(R.id.edtPassword);
         buttonSubmit = (Button) findViewById(R.id.bntSubmit);
 
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,12 +46,18 @@ public class MainActivity extends AppCompatActivity {
                 String txtName = editTextName.getText().toString();
                 String txtBirthday = editTextBirthday.getText().toString();
 
+                // use radio button group
                 String txtGender="";
-                if (radioButtonMale.isChecked()) {
-                    txtGender="Male";
-                } else {
-                    txtGender="Female";
-                }
+                int radioButtonId = radioGroupGender.getCheckedRadioButtonId();
+                RadioButton radioButtonGender = (RadioButton) findViewById(radioButtonId);
+                txtGender=radioButtonGender.getText().toString();
+
+                // OR use radio button directly
+                //if (radioButtonMale.isChecked()) {
+                //    txtGender="Male";
+                //} else {
+                //    txtGender="Female";
+                //}
 
                 // initial subscribe string with space prevent error while substring
                 String txtSubscribe=" ";
