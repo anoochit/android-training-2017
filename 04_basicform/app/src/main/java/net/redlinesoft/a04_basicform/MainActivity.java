@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         editTextPassword = (EditText) findViewById(R.id.edtPassword);
         buttonSubmit = (Button) findViewById(R.id.bntSubmit);
 
-
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,16 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
-
-
 
     }
 }

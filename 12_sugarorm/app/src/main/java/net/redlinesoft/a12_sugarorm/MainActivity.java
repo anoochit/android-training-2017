@@ -10,9 +10,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.orm.SchemaGenerator;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // SugarORM init
         SugarContext.init(getApplicationContext());
 
         // create table if not exists
@@ -56,16 +57,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_note);
+
+        // get column number from string value
         int colNum = Integer.parseInt(getResources().getString(R.string.recyclerview_column));
+
+        // use staggered grid layout to render view
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(colNum, StaggeredGridLayoutManager.VERTICAL);
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-
         recyclerView.setLayoutManager(gridLayoutManager);
+
+        // get initial number of note
         initialCount = Note.count(Note.class);
 
+        // send count value to logcat
         Log.d(TAG,"count = "+initialCount);
 
+        // if initial count is
         if (initialCount>=0) {
             notes = Note.listAll(Note.class);
             noteAdapter = new NoteAdapter(MainActivity.this, notes);
@@ -73,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
             if (notes.isEmpty())
                 Toast.makeText(getApplicationContext(),"No Data!",Toast.LENGTH_SHORT).show();
-
 
         }
 
