@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final String TAG = "MainActivity";
+    private static final int REQ_FINE_LOCATION = 100;
     GoogleApiClient googleApiClient;
     LocationRequest locationRequest;
     Location location;
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // TODO 3 : setup google api client is
         if (googleApiClient == null) {
             googleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
         if (googleApiClient != null && googleApiClient.isConnected()) {
             googleApiClient.disconnect();
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient,this);
         }
     }
 
@@ -146,19 +147,33 @@ public class MainActivity extends AppCompatActivity
     public void onConnected(@Nullable Bundle bundle) {
         LocationRequest locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(1000);
+                .setInterval(3000);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQ_FINE_LOCATION);
             }
             return;
         }
 
         Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-        Log.d(TAG, "old location data -> " + location.getLatitude() + "," + location.getLongitude());
-
+        if (location!=null) {
+            Log.d(TAG, "old location data -> " + location.getLatitude() + "," + location.getLongitude());
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case REQ_FINE_LOCATION :
+                Log.d(TAG,"fine location result ");
+
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
 
     }
 
