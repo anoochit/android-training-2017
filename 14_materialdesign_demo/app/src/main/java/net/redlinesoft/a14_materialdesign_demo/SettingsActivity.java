@@ -1,4 +1,4 @@
-package net.redlinesoft.a12_preference_activity;
+package net.redlinesoft.a14_materialdesign_demo;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -12,7 +12,6 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_settings);
         addPreferencesFromResource(R.xml.preference_setting);
     }
 
@@ -20,7 +19,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
         root.addView(bar, 0); // insert at top
         bar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
