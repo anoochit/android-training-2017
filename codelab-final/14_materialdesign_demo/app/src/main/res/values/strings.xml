@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Ayuthaya</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="action_share">Share</string>
+    <string name="label_about">About</string>
+    <string name="action_place">Place</string>
+    <string name="action_restaurant">Restaurant</string>
+    <string name="action_hotel">Hotel</string>
+    <string name="action_nearby">Near Me</string>
+    <string name="group_action_communicate">Communicate</string>
+    <string name="share_text">Download this cool app at https://play.google.com/store/apps/details?id=net.redlinesoft.a14_materialdesign_demo</string>
+    <string name="about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a neque vel metus sagittis convallis eget et risus. Praesent eget libero ut erat mattis interdum in sit amet sapien. Nunc quis porttitor ipsum. Aliquam pretium nunc id eros ultrices convallis. Aliquam nisl orci, volutpat eget magna quis, fermentum commodo velit. Cras sed pulvinar quam.</string>
+    <string name="label_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_place_nearby">Place Near Me</string>
+
+</resources>
